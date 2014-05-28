@@ -38,6 +38,7 @@ xcuserdata
 profile
 *.moved-aside
 IOS/www/
+ios/www/
 
 # OSX
 .DS_Store

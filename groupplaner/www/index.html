@@ -11,50 +11,35 @@
 	<title>Gruppenplaner</title>
 
 	<!-- libs -->
+	<!-- The order is important! 
+		1.) jQuery must be before jqm-config 
+		2.) jqm-config must be before jquery.mobile
+		3.) underscore and jquery must be before backbone
+		-->
 	<script type="text/javascript" src="phonegap.js"></script>
-	<script type="text/javascript" src="js/lib/backbone.js"></script>
-	<script type="text/javascript" src="js/lib/backbone-mvc.js"></script>
 	<script type="text/javascript" src="js/lib/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="js/support/jqmConfig.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.mobile-1.4.2.js"></script>
-
+	<script type="text/javascript" src="js/lib/underscore.js"></script>
+	<script type="text/javascript" src="js/lib/backbone.js"></script>
+	
 	<!-- custom scripts -->
+	<script type="text/javascript" src="js/support/templateCache.js"></script>
+	
+	<script type="text/javascript" src="js/views/homeView.js"></script>
+	<script type="text/javascript" src="js/views/page1View.js"></script>
+	<script type="text/javascript" src="js/views/page2View.js"></script>
+	
+	<script type="text/javascript" src="js/appRouter.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	
 </head>
 <body>
 
-<div data-role="page" id="pageone">
-	<!-- header -->
-	<div data-role="header" class="jqm-header" data-theme="f" data-position="fixed">
-		<h1>Gruppenplaner</h1>
-		<a href="" class="ui-btn-left" data-icon="gear" data-iconpos="notext">Einstellungen</a>
-		<a href="" class="ui-btn-right" data-icon="plus" data-iconpos="notext">Neue Gruppe</a>
-	</div>
-	<!-- /header -->
-
-	<!-- content -->
-	<div data-role="main" class="ui-content">
-		<ul data-role="listview">
-			<li>
-				<a href="index.html">
-					<h3 class="ui-li-heading">Gruppe 1</h3>
-					<span class="ui-li-desc">Nix zu tun...</span>
-				</a>
-			</li>
-			<li>
-				<a href="index.html">
-					<h3 class="ui-li-heading">Gruppe 2</h3>
-					<span class="ui-li-desc">Uff...</span>
-				</a>
-			</li>
-		</ul>
-	</div>
-	<!-- /content -->
-
-</div>
-
 <script type="text/javascript">
-	app.initialize();
+	$(document).ready(function() {
+		app.initialize();
+	});
 </script>
 </body>
 </html>

@@ -37,8 +37,9 @@ build/*
 xcuserdata
 profile
 *.moved-aside
-IOS/www/
-ios/www/
+**/IOS/www/
+**/ios/www/
+console.log
 
 # OSX
 .DS_Store

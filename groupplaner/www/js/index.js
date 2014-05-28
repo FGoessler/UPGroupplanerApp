@@ -23,6 +23,9 @@ var app = {
 		if (navigator.userAgent.match(/(iPad.*|iPhone.*|iPod.*);.*CPU.*OS 7_\d/i)) {
 			$("body").addClass("ios7").append('<div id="ios7statusbar"/>');
 		}
+		
+		//TODO: don't hardcode the user data and move this setup somewhere else!
+		$.ajaxSetup({headers:{Authorization:"Basic "+ "user:pw".encodeBase64()}})
 
 		app.router = new AppRouter();
 		Backbone.history.start({pushState: false});

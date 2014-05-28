@@ -16,17 +16,14 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	home:function () {
-		console.log('#home');
-		this.changePage(new HomeView());
+		this.changePage(new GroupsView());
 	},
 
 	page1:function () {
-		console.log('#page1');
 		this.changePage(new Page1View());
 	},
 
 	page2:function () {
-		console.log('#page2');
 		this.changePage(new Page2View());
 	},
 

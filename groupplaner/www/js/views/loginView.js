@@ -1,25 +1,38 @@
 app.groupplaner.LoginView = Backbone.View.extend({
 
-	events:{
+	events: {
 		"click #login-btn": "login"
 	},
-	
-	render:function () {
+
+	render: function () {
 		$(this.el).html(app.groupplaner.templateCache.renderTemplate("loginView"));
 		$("body").trigger('create');	//trigger jQueryMobile update
 		return this;
 	},
-	
-	login: function(){
+
+	login: function () {
 		var email = $("#login-email").val();
 		var password = $("#login-password").val();
-		app.groupplaner.AuthStore.login(email, password,function(success){
-			if(success) {
-				app.groupplaner.launcher.router.navigate("groups",{trigger:true});
+		this.disableForm();
+		var self = this;
+		app.groupplaner.AuthStore.login(email, password, function (success) {
+			if (success) {
+				app.groupplaner.launcher.router.navigate("groups", {trigger: true});
 			} else {
-				navigator.notification.alert("Die eingegebenen Daten waren leider nicht korrekt.",null,"Fehler");
+				self.enableForm();
+				navigator.notification.alert("Die eingegebenen Daten waren leider nicht korrekt.", null, "Fehler");
 			}
 		});
+	},
+
+	disableForm: function () {
+		$(":input").prop('disabled', true);
+		$.mobile.loading().loader("show");
+	},
+
+	enableForm: function () {
+		$(":input").prop('disabled', false);
+		$.mobile.loading().loader("hide");
 	}
-	
+
 });

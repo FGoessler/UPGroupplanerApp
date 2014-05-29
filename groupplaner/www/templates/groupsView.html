@@ -1,11 +1,12 @@
 <div data-role="header" data-position="fixed">
 	<h1>Gruppen</h1>
+	<a id="add-group-btn" class="ui-btn-right" data-icon="plus" data-iconpos="notext">Neue Gruppe</a>
 </div>
 
 <div data-role="content">
 	<ul data-role="listview">
 		<% _.each( groups, function( group ){ %>
-		<li><%- group.name %></li>
+		<li><a href="#group/<%= group.id %>"><%- group.name %></a></li>
 		<% }); %>
 	</ul>
 </div>

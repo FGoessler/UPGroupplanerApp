@@ -1,3 +1,3 @@
 app.groupplaner.GroupModel = Backbone.Model.extend({
-	url: app.groupplaner.config.baseUrl + '/group'
+	urlRoot: app.groupplaner.config.baseUrl + '/group'
 });

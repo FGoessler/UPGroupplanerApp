@@ -2,7 +2,7 @@ app.groupplaner.AppRouter = Backbone.Router.extend({
 
 	routes:{
 		"":"home",
-		"page1":"page1",
+		"group/:id":"groupPage",
 		"page2":"page2"
 	},
 
@@ -19,8 +19,8 @@ app.groupplaner.AppRouter = Backbone.Router.extend({
 		this.changePage(new app.groupplaner.GroupsView());
 	},
 
-	page1:function () {
-		this.changePage(new Page1View());
+	groupPage:function (id) {
+		this.changePage(new app.groupplaner.GroupView({groupId:id}));
 	},
 
 	page2:function () {

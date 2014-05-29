@@ -6,14 +6,12 @@
         id        = "com.phonegap.helloworld"
         version   = "1.0.0">
 
-    <name>HelloWorld</name>
+    <name>Groupplaner</name>
 
-    <description>
-        Hello World sample application that responds to the deviceready event.
-    </description>
+    <description></description>
 
-    <author href="http://phonegap.com" email="support@phonegap.com">
-        PhoneGap Team
+    <author href="http://www.floriangoessler.de" email="mail@floriangoessler.de">
+        Florian Gößler
     </author>
 
     <!--
@@ -48,10 +46,8 @@
 
     
     <!-- Plugins can also be added here. -->
-    <!--
-        <gap:plugin name="Example" />
-        A list of available plugins are available at https://build.phonegap.com/docs/plugins
-    -->
+    <gap:plugin name="org.apache.cordova.dialogs" />
+
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />

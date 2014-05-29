@@ -20,7 +20,14 @@ app.groupplaner.templateCache = {
 				templateName + '" type="text/template">' + tmpl_string + '<\/script>');
 		}
 	},
-	
+
+	/**
+	 * Loads the template with the given name from the templates directory and renders it via underscore.
+	 * @param templateName The name of teh template file in the templates directory without ".html" suffix.
+	 * @param data The data as passed in to _.template .
+	 * @param settings The settings as passed in to _.template .
+	 * @returns {*} The rendered template string.
+	 */
 	renderTemplate: function(templateName, data, settings) {
 		this.requireTemplate(templateName);
 		return _.template($('#template_' + templateName).html(), data, settings)

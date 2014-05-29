@@ -1,3 +1,4 @@
+// Perform some basic configuration so that jQueryMobile and Backbone play nice together.
 $(document).on("mobileinit", function () {
 	$.mobile.ajaxEnabled = false;
 	$.mobile.linkBindingEnabled = false;

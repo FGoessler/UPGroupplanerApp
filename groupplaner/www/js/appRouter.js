@@ -1,9 +1,10 @@
 app.groupplaner.AppRouter = Backbone.Router.extend({
 
 	routes:{
-		"":"home",
-		"group/:id":"groupPage",
-		"page2":"page2"
+		"":"start",
+		"login": "loginPage",
+		"groups":"groupsPage",
+		"group/:id":"groupPage"
 	},
 
 	initialize:function () {
@@ -15,7 +16,19 @@ app.groupplaner.AppRouter = Backbone.Router.extend({
 		this.firstPage = true;
 	},
 
-	home:function () {
+	start:function () {
+		if(app.groupplaner.AuthStore.isUserLoggedIn()) {
+			this.navigate("groups", {trigger:true});
+		} else {
+			this.navigate("login", {trigger:true});
+		}
+	},
+
+	loginPage:function () {
+		this.changePage(new app.groupplaner.LoginView());
+	},
+
+	groupsPage: function(){
 		this.changePage(new app.groupplaner.GroupsView());
 	},
 
@@ -23,15 +36,11 @@ app.groupplaner.AppRouter = Backbone.Router.extend({
 		this.changePage(new app.groupplaner.GroupView({groupId:id}));
 	},
 
-	page2:function () {
-		this.changePage(new Page2View());
-	},
-
-	changePage:function (page) {
+	changePage:function (page, transition) {
 		$(page.el).attr('data-role', 'page');
 		page.render();
 		$('body').append($(page.el));
-		var transition = $.mobile.defaultPageTransition;
+		transition = transition ? transition : $.mobile.defaultPageTransition;
 		// We don't want to slide the first page
 		if (this.firstPage) {
 			transition = 'none';

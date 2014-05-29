@@ -3,8 +3,8 @@
 	<a id="add-group-btn" class="ui-btn-right" data-icon="plus" data-iconpos="notext">Neue Gruppe</a>
 </div>
 
-<div data-role="content">
-	<ul data-role="listview">
+<div class="ui-content" role="main">
+<ul data-role="listview">
 		<% _.each( groups, function( group ){ %>
 		<li><a href="#group/<%= group.id %>"><%- group.name %></a></li>
 		<% }); %>

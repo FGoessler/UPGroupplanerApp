@@ -4,7 +4,7 @@
 #ios7statusbar {
 	width:100%;
 	height:20px;
-	background-color:white;
+	background-color: rgb(10, 67, 94);
 	position:fixed;
 	z-index:10000;
 }
@@ -14,4 +14,13 @@
 
 .jqm-header {
 	background-color: white;
+}
+
+.ui-header {
+	background-color: rgb(10, 67, 94) !important;
+}
+
+.ui-title {
+	text-shadow: none !important;
+	color: #ffffff;
 }

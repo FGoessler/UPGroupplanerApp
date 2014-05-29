@@ -4,6 +4,6 @@ app.groupplaner.GroupModel = Backbone.Model.extend({
 	sync: function(method, model, options) {
 		options = options ? options : {};
 		options.headers = app.groupplaner.AuthStore.getAuthHeader();
-		Backbone.Model.prototype.sync(method, model, options);
+		return Backbone.Model.prototype.sync(method, model, options);
 	}
 });

@@ -6,6 +6,6 @@ app.groupplaner.GroupCollection = Backbone.Collection.extend({
 	sync: function(method, collection, options) {
 		options = options ? options : {};
 		options.headers = app.groupplaner.AuthStore.getAuthHeader();
-		Backbone.Collection.prototype.sync(method, collection, options);
+		return Backbone.Collection.prototype.sync(method, collection, options);
 	}
 });

@@ -1,4 +1,4 @@
-templateCache = {
+app.groupplaner.templateCache = {
 	
 	requireTemplate: function(templateName) {
 		var template = $('#template_' + templateName);

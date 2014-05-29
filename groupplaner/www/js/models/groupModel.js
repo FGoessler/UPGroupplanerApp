@@ -1,3 +1,3 @@
-var GroupModel = Backbone.Model.extend({
-
+app.groupplaner.GroupModel = Backbone.Model.extend({
+	url: app.groupplaner.config.baseUrl + '/group'
 });

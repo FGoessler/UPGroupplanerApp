@@ -1,4 +1,4 @@
-var GroupCollection = Backbone.Collection.extend({
-	url: 'http://localhost:8080/user/group',
-	model: GroupModel
+app.groupplaner.GroupCollection = Backbone.Collection.extend({
+	url: app.groupplaner.config.baseUrl + '/group',
+	model: app.groupplaner.GroupModel
 });

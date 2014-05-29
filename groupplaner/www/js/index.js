@@ -1,4 +1,4 @@
-var app = {
+app.groupplaner.launcher = {
 	// Application Constructor
 	initialize: function() {
 		this.bindEvents();
@@ -15,7 +15,7 @@ var app = {
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady: function() {
-		app.receivedEvent('deviceready');
+		app.groupplaner.launcher.receivedEvent('deviceready');
 	},
 	// Update DOM on a Received Event
 	receivedEvent: function(id) {
@@ -27,7 +27,7 @@ var app = {
 		//TODO: don't hardcode the user data and move this setup somewhere else!
 		$.ajaxSetup({headers:{Authorization:"Basic "+ "user:pw".encodeBase64()}})
 
-		app.router = new AppRouter();
+		this.router = new app.groupplaner.AppRouter();
 		Backbone.history.start({pushState: false});
 	}
 };

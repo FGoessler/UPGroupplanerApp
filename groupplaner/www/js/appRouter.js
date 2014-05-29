@@ -1,4 +1,4 @@
-var AppRouter = Backbone.Router.extend({
+app.groupplaner.AppRouter = Backbone.Router.extend({
 
 	routes:{
 		"":"home",
@@ -16,7 +16,7 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	home:function () {
-		this.changePage(new GroupsView());
+		this.changePage(new app.groupplaner.GroupsView());
 	},
 
 	page1:function () {

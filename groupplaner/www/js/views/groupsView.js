@@ -1,5 +1,5 @@
-var GroupsView = Backbone.View.extend({
-	groups: new GroupCollection(),
+app.groupplaner.GroupsView = Backbone.View.extend({
+	groups: new app.groupplaner.GroupCollection(),
 
 	initialize: function() {
 		this.groups.fetch();
@@ -9,7 +9,7 @@ var GroupsView = Backbone.View.extend({
 	},
 	
 	render:function (eventName) {
-		var template = templateCache.renderTemplate("groupsView", {groups: this.groups.toJSON()});
+		var template = app.groupplaner.templateCache.renderTemplate("groupsView", {groups: this.groups.toJSON()});
 		$(this.el).html(template);
 		$("body").trigger('create');	//trigger jQueryMobile update
 		return this;

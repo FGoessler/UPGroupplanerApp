@@ -4,8 +4,8 @@
 </div>
 
 <div class="ui-content" role="main">
-<ul data-role="listview">
-		<% _.each( groups, function( group ){ %>
+	<ul data-role="listview">
+	<% _.each( groups, function( group ){ %>
 		<li><a href="#group/<%= group.id %>"><%- group.name %></a></li>
 		<% }); %>
 	</ul>

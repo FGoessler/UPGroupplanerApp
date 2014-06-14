@@ -1,9 +1,46 @@
 <div data-role="header" data-position="fixed">
 	<a href="#" data-icon="back" data-iconpos="notext" class="back ui-btn-left">Back</a>
+
 	<h1><%- group.name %></h1>
+	<a id="add-member-btn" class="ui-btn-right" data-icon="plus" data-iconpos="notext">Einladen</a>
 </div>
 
 <div class="ui-content" role="main">
-<p>Placeholder for more info about the group.</p>
-	<input id="delete-group-btn" type="button" value="Gruppe löschen">
+	<ul data-role="listview">
+		<!-- pending invite handling -->
+		<% if (pendingInvite) { %>
+		<li>
+			<p>Sie wurden von <%= pendingInvite.invitedBy %> eingeladen dieser Gruppe beizutreten.</p>
+			<span id="accept-invite-btn">Beitreten</span> <span id="decline-invite-btn">Ablehnen</span>
+		</li>
+		<% } %>
+
+		<!-- accepted dates -->
+		<% if (!pendingInvite && dates.length > 0) { %>
+		<li data-role="list-divider">Termine</li>
+		<% _.each( dates, function( date ){ %>
+		<li>
+			<%= date.name %>
+		</li>
+		<% }); %>
+		<% } %>
+
+		<!-- member -->
+		<li data-role="list-divider">Mitglieder</li>
+		<% _.each( members, function( member ){ %>
+		<li>
+			<p><%= member.name %> <%= member.email %></p>
+
+			<p>Status: <%= member.invitationState %> (<%= member.lastStateChange %>)</p>
+
+			<p>eingeladen von: <%= member.invitedBy %></p>
+		</li>
+		<% }); %>
+
+		<!-- other options -->
+		<% if (!pendingInvite) { %>
+		<li data-role="list-divider">Optionen</li>
+		<li id="delete-group-btn"><a>Gruppe löschen</a></li>
+		<% } %>
+	</ul>
 </div>

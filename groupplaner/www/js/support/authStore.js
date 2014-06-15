@@ -5,14 +5,14 @@ app.groupplaner.AuthStore = {
 	 * This method does not validate these credentials against the API!
 	 * @returns {boolean} Loginstatus of the user.
 	 */
-	isUserLoggedIn: function() {
-		if(this.getUserEmail()) {
+	isUserLoggedIn: function () {
+		if (this.getUserEmail()) {
 			return true;
 		} else {
 			return false;
 		}
 	},
-	
+
 	getUserEmail: function () {
 		return localStorage.getItem("user_email");
 	},
@@ -38,8 +38,17 @@ app.groupplaner.AuthStore = {
 	},
 
 	/**
-	 * Provides the HTTP basic authentication header which is required to make calls to the API. 
-	 * @param email Optional - The user's email address. If not set it will use the saved email address. 
+	 * Removes the users login data and navigates back to the login page.
+	 */
+	logout: function () {
+		localStorage.removeItem("user_email");
+		localStorage.removeItem("user_password");
+		app.groupplaner.launcher.router.navigate("#", {trigger: true});
+	},
+
+	/**
+	 * Provides the HTTP basic authentication header which is required to make calls to the API.
+	 * @param email Optional - The user's email address. If not set it will use the saved email address.
 	 * @param password Optional - The password. If not set it will use the saved password.
 	 * @returns {{Authorization: string}}
 	 */

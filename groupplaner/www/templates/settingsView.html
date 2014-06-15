@@ -1,0 +1,43 @@
+<div data-role="header" data-position="fixed">
+	<h1>Einstellungen</h1>
+	<a href="#" data-icon="back" data-iconpos="notext" class="back ui-btn-left">Back</a>
+	<a id="add-date-btn" class="ui-btn-right" data-icon="plus" data-iconpos="notext" href="#newBlockedDate">Neuer
+		geblockter Zeitraum</a>
+</div>
+
+<div class="ui-content" role="main">
+	<ul data-role="listview">
+
+		<li data-role="list-divider">Nicht verfügbare Zeiträume</li>
+		<% _.each( dates, function( date ){
+		start = app.groupplaner.DateConverter.apiDateIntToFormattedDateObj(date.start);
+		end = app.groupplaner.DateConverter.apiDateIntToFormattedDateObj(date.end);
+		%>
+		<li>
+			<%= start.weekday %> <%= start.time %> - <%= end.weekday %> <%= end.time %>
+			<div data-role="controlgroup" data-type="horizontal" data-mini="true" style="float: right; margin: 0px;">
+				<span data-date-id="<%= date.id %>" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext">Löschen</span>
+				<span data-date-id="<%= date.id %>"
+					  class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext">Ändern</span>
+			</div>
+		</li>
+		<% }); %>
+
+		<% if(dates && dates.length > 0) { %>
+		<li>
+			<font style="white-space:normal; font-size: small">Zusätzlich zu den oben angegebenen Zeiten wird bei der
+				Ermittlung von Terminvorschlägen auch Ihr Stundenplan berücksichtigt.</font>
+		</li>
+		<% } else { %>
+		<li>
+			<font style="white-space:normal; font-size: small">Erstellen Sie hier Zeiträume, in denen Sie vom
+				Gruppenplaner als nicht verfügbar eingestuft werden wollen und somit dort keine Terminvorschläge
+				generiert werden. Ihr Stundenplan wird bereits automatisch berücksichtigt.</font>
+		</li>
+		<% } %>
+
+		<li data-role="list-divider">&nbsp;</li>
+
+		<li><a id="logout-btn">Ausloggen</a></li>
+	</ul>
+</div>

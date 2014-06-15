@@ -6,7 +6,8 @@ $(document).on("mobileinit", function () {
 	$.mobile.pushStateEnabled = false;
 });
 
-$('div[data-role="page"]').on('pagehide', function (event, ui) {
-	$(event.currentTarget).remove();
+$(document).bind('pagechange', function () {
+	$('div[data-role="page"]').bind('pagehide', function (event, ui) {
+		$(event.currentTarget).remove();
+	});
 });
-

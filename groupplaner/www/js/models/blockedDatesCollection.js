@@ -1,9 +1,7 @@
-app.groupplaner.AcceptedDatesCollection = Backbone.Collection.extend({
-	url: function () {
-		return app.groupplaner.config.baseUrl + '/group/' + this.groupId + '/acceptedDates'
-	},
+app.groupplaner.BlockedDatesCollection = Backbone.Collection.extend({
+	url: app.groupplaner.config.baseUrl + '/blockedDates',
 
-	model: app.groupplaner.AcceptedDateModel,
+	model: app.groupplaner.BlockedDateModel,
 
 	sync: function (method, collection, options) {
 		options = options ? options : {};

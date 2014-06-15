@@ -1,0 +1,51 @@
+<div data-role="header" data-position="fixed">
+	<% if(date) { %>
+	<h1>Zeitraum ändern</h1>
+	<% } else { %>
+	<h1>Neuer Zeitraum</h1>
+	<% } %>
+	<a href="#settings" data-icon="back" data-iconpos="notext" class="back ui-btn-left">Back</a>
+</div>
+
+<div class="ui-content" role="main">
+
+	<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		<legend>Von (Wochentag):</legend>
+		<input type="radio" name="from-weekday" id="from-mo" value="Mo" checked="checked">
+		<label for="from-mo">Mo</label>
+		<input type="radio" name="from-weekday" id="from-di" value="Di">
+		<label for="from-di">Di</label>
+		<input type="radio" name="from-weekday" id="from-mi" value="Mi">
+		<label for="from-mi">Mi</label>
+		<input type="radio" name="from-weekday" id="from-do" value="Do">
+		<label for="from-do">Do</label>
+		<input type="radio" name="from-weekday" id="from-fr" value="Fr">
+		<label for="from-fr">Fr</label>
+		<input type="radio" name="from-weekday" id="from-sa" value="Sa">
+		<label for="from-sa">Sa</label>
+		<input type="radio" name="from-weekday" id="from-so" value="So">
+		<label for="from-so">So</label>
+	</fieldset>
+	<input id="from-time" type="time" placeholder="von" <% if(date) { %> value="<%= date.start.time %>" <% } %>><br>
+
+	<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		<legend>Bis (Wochentag):</legend>
+		<input type="radio" name="to-weekday" id="to-mo" value="Mo" checked="checked">
+		<label for="to-mo">Mo</label>
+		<input type="radio" name="to-weekday" id="to-di" value="Di">
+		<label for="to-di">Di</label>
+		<input type="radio" name="to-weekday" id="to-mi" value="Mi">
+		<label for="to-mi">Mi</label>
+		<input type="radio" name="to-weekday" id="to-do" value="Do">
+		<label for="to-do">Do</label>
+		<input type="radio" name="to-weekday" id="to-fr" value="Fr">
+		<label for="to-fr">Fr</label>
+		<input type="radio" name="to-weekday" id="to-sa" value="Sa">
+		<label for="to-sa">Sa</label>
+		<input type="radio" name="to-weekday" id="to-so" value="So">
+		<label for="to-so">So</label>
+	</fieldset>
+	<input id="to-time" type="time" placeholder="bis" <% if(date) { %> value="<%= date.end.time %>" <% } %>><br>
+
+	<input id="submit-btn" type="button" value="Speichern">
+</div>

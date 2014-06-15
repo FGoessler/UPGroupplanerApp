@@ -4,9 +4,12 @@ app.groupplaner.GroupView = Backbone.View.extend({
 
 	events: {
 		"click #delete-group-btn": "deleteGroup",
+		"click #rename-group-btn": "renameGroup",
 		"click #add-member-btn": "addMember",
 		"click #accept-invite-btn": "acceptInvite",
-		"click #decline-invite-btn": "declineInvite"
+		"click #decline-invite-btn": "declineInvite",
+		"click .ui-icon-delete": "deleteMember",
+		"click .ui-icon-mail": "mailMember"
 	},
 
 	initialize: function (options) {
@@ -44,6 +47,10 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		return this;
 	},
 
+	/* ------------------------------------------------------------------------------------------- */
+	/* manage members */
+	/* ------------------------------------------------------------------------------------------- */
+
 	addMember: function () {
 		var self = this;
 		var promptCallback = function (result) {
@@ -57,11 +64,50 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		navigator.notification.prompt("Bitte geben Sie die E-Mail Adresse der Person ein, die Sie einladen möchten.", promptCallback, "Einladen", ["OK", "Abbrechen"]);
 	},
 
+	deleteMember: function (event) {
+		var memberEmail = $(event.target).attr("data-member-email");
+		var model = this.members.get(memberEmail);
+
+		var self = this;
+		var confirmHandler = function (button) {
+			if (button === 1) {
+				model.destroy().success(function () {
+					self.members.remove(model)
+				}).fail(function () {
+					navigator.notification.alert("Die Person konnte nicht ausgeladen werden.");
+				});
+			}
+		};
+		navigator.notification.confirm("Die Person mit der E-Mail Adresse '" + memberEmail + "' wirklich ausladen?", confirmHandler, "Achtung", ["Ja", "Nein"]);
+	},
+
+	mailMember: function (event) {
+		var memberEmail = $(event.target).attr("data-member-email");
+		window.location.href = "mailto:" + memberEmail;
+	},
+
+	/* ------------------------------------------------------------------------------------------- */
+	/* manage group */
+	/* ------------------------------------------------------------------------------------------- */
+
+	renameGroup: function () {
+		var self = this;
+		var promptCallback = function (result) {
+			if (result.buttonIndex === 1) {
+				self.group.save({name: result.input1}, {wait: true,
+					error: function () {
+						navigator.notification.alert("Umbennen der Gruppe fehlgeschlagen.");
+					}});
+			}
+		};
+		navigator.notification.prompt("Bitte geben Sie den neuen Namen der Gruppe ein.", promptCallback, "Gruppe umbennen", ["OK", "Abbrechen"], this.group.get("name"));
+	},
+
 	deleteGroup: function () {
 		var self = this;
 		var confirmHandler = function (button) {
 			if (button === 1) {
-				self.group.destroy().done(function () {
+				self.group.destroy().success(function () {
 					window.history.back();
 				}).fail(function () {
 					navigator.notification.alert("Gruppe konnte nicht gelöscht werden.");
@@ -70,6 +116,10 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		};
 		navigator.notification.confirm("Die Gruppe '" + this.group.get("name") + "' wirklich löschen?", confirmHandler, "Achtung", ["Ja", "Nein"]);
 	},
+
+	/* ------------------------------------------------------------------------------------------- */
+	/* manage invite */
+	/* ------------------------------------------------------------------------------------------- */
 
 	acceptInvite: function () {
 		var self = this;

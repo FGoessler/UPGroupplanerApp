@@ -29,6 +29,13 @@
 		<li data-role="list-divider">Mitglieder</li>
 		<% _.each( members, function( member ){ %>
 		<li>
+			<div data-role="controlgroup" data-type="horizontal" data-mini="true" style="float: right; margin: 0;">
+				<span data-member-email="<%= member.email %>"
+					  class="ui-btn ui-corner-all ui-icon-mail ui-btn-icon-notext">Mail schreiben</span>
+				<span data-member-email="<%= member.email %>"
+					  class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext">Löschen</span>
+			</div>
+
 			<p><%= member.name %> <%= member.email %></p>
 
 			<p>Status: <%= member.invitationState %> (<%= member.lastStateChange %>)</p>
@@ -40,6 +47,7 @@
 		<!-- other options -->
 		<% if (!pendingInvite) { %>
 		<li data-role="list-divider">Optionen</li>
+		<li id="rename-group-btn"><a>Gruppe umbenennen</a></li>
 		<li id="delete-group-btn"><a>Gruppe löschen</a></li>
 		<% } %>
 	</ul>

@@ -29,7 +29,7 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 		var self = this;
 		var confirmHandler = function (button) {
 			if (button === 1) {
-				model.destroy().done(function () {
+				model.destroy().success(function () {
 					self.dates.remove(model)
 				}).fail(function () {
 					navigator.notification.alert("Zeitraum konnte nicht gelöscht werden.");
@@ -37,7 +37,6 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 			}
 		};
 		navigator.notification.confirm("Den Zeitraum wirklich löschen?", confirmHandler, "Achtung", ["Ja", "Nein"]);
-
 	},
 
 	editDate: function (event) {

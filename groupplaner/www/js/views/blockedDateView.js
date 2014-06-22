@@ -38,6 +38,7 @@ app.groupplaner.BlockedDateView = Backbone.View.extend({
 	save: function () {
 		if (!this.date) this.date = new app.groupplaner.BlockedDateModel();
 		this.date.save({
+			source: app.groupplaner.config.sourcekey,
 			start: app.groupplaner.DateConverter.formattedDateObjToApiDateInt({weekday: $('input[name=from-weekday]:checked').val(), time: $("#from-time").val()}),
 			end: app.groupplaner.DateConverter.formattedDateObjToApiDateInt({weekday: $('input[name=to-weekday]:checked').val(), time: $("#to-time").val()})
 		}, {wait: true,

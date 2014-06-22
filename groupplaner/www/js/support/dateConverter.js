@@ -8,7 +8,7 @@ app.groupplaner.DateConverter = {
 		var minute = apiDate - weekdayNr * 10000 - hour * 100;
 		return {
 			weekday: weekdayTable[weekdayNr],
-			time: hour + ":" + minute
+			time: hour.pad(2) + ":" + minute.pad(2)
 		}
 	},
 

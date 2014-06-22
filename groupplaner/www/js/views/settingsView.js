@@ -12,7 +12,7 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 		this.listenTo(this.dates, 'add', this.render);
 		this.listenTo(this.dates, 'remove', this.render);
 		this.listenTo(this.dates, 'sync', this.render);
-		this.dates.fetch();
+		this.dates.fetch({data: {source: app.groupplaner.config.sourcekey}});
 	},
 
 	render: function () {

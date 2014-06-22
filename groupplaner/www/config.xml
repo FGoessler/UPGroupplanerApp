@@ -87,11 +87,13 @@
     -->
     <access origin="http://127.0.0.1*"/> <!-- allow local pages -->
     <access origin="http://localhost"/> <!-- allow access to localhost server  -->
-    
-    <!--
-        <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
-        <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/
-        <access origin="http://phonegap.com" browserOnly="true" /> - only allows http://phonegap.com to be opened by the child browser.
-    -->
+	<access origin="http://zibet.soft.cs.uni-potsdam.de:8080"/>
+	<!-- allow access to the API server  -->
+
+	<!--
+		<access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
+		<access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/
+		<access origin="http://phonegap.com" browserOnly="true" /> - only allows http://phonegap.com to be opened by the child browser.
+	-->
 
 </widget>

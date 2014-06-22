@@ -16,7 +16,6 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		if (options && options.groupId) {
 			this.group = new app.groupplaner.GroupModel({id: options.groupId});
 			this.listenTo(this.group, "change", this.render);
-			this.group.fetch();
 
 			this.members = new app.groupplaner.MemberCollection();
 			this.members.groupId = options.groupId;
@@ -24,7 +23,6 @@ app.groupplaner.GroupView = Backbone.View.extend({
 			this.listenTo(this.members, 'add', this.render);
 			this.listenTo(this.members, 'remove', this.render);
 			this.listenTo(this.members, 'sync', this.render);
-			this.members.fetch();
 
 			this.dates = new app.groupplaner.AcceptedDatesCollection();
 			this.dates.groupId = options.groupId;
@@ -32,6 +30,9 @@ app.groupplaner.GroupView = Backbone.View.extend({
 			this.listenTo(this.dates, 'add', this.render);
 			this.listenTo(this.dates, 'remove', this.render);
 			this.listenTo(this.dates, 'sync', this.render);
+
+			this.group.fetch();
+			this.members.fetch();
 			this.dates.fetch();
 		}
 	},

@@ -17,6 +17,7 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 	},
 
 	render: function () {
+		$.mobile.loading().loader("hide");
 		var template = app.groupplaner.templateCache.renderTemplate("settingsView", {dates: this.dates.toJSON()});
 		$(this.el).html(template);
 		$("body").trigger('create');	//trigger jQueryMobile update
@@ -29,9 +30,12 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 			headers: app.groupplaner.AuthStore.getAuthHeader()
 		};
 
+		$.mobile.loading().loader("show");
+
 		$.ajax(app.groupplaner.config.baseUrl + "/timetable/import", options).success(function(){
 			self.dates.fetch();
 		}).fail(function(){
+			$.mobile.loading().loader("hide");
 			navigator.notification.alert("Importieren fehlgeschlagen.");
 		});
 	},

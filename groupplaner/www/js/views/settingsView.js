@@ -2,6 +2,7 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 	dates: new app.groupplaner.BlockedDatesCollection(),
 
 	events: {
+		"click #import-btn": "importTimetable",
 		"click #logout-btn": "logout",
 		"click .ui-icon-edit": "editDate",
 		"click .ui-icon-delete": "deleteDate"
@@ -12,7 +13,7 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 		this.listenTo(this.dates, 'add', this.render);
 		this.listenTo(this.dates, 'remove', this.render);
 		this.listenTo(this.dates, 'sync', this.render);
-		this.dates.fetch({data: {source: app.groupplaner.config.sourcekey}});
+		this.dates.fetch();
 	},
 
 	render: function () {
@@ -20,6 +21,19 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 		$(this.el).html(template);
 		$("body").trigger('create');	//trigger jQueryMobile update
 		return this;
+	},
+
+	importTimetable: function() {
+		var self = this;
+		var options = {
+			headers: app.groupplaner.AuthStore.getAuthHeader()
+		};
+
+		$.ajax(app.groupplaner.config.baseUrl + "/timetable/import", options).success(function(){
+			self.dates.fetch();
+		}).fail(function(){
+			navigator.notification.alert("Importieren fehlgeschlagen.");
+		});
 	},
 
 	deleteDate: function (event) {

@@ -25,19 +25,20 @@
 
 		<% if(dates && dates.length > 0) { %>
 		<li>
-			<font style="white-space:normal; font-size: small">Zusätzlich zu den oben angegebenen Zeiten wird bei der
-				Ermittlung von Terminvorschlägen auch Ihr Stundenplan berücksichtigt.</font>
+			<button id="import-btn">Stundenplan importieren</button>
 		</li>
 		<% } else { %>
 		<li>
 			<font style="white-space:normal; font-size: small">Erstellen Sie hier Zeiträume, in denen Sie vom
 				Gruppenplaner als nicht verfügbar eingestuft werden wollen und somit dort keine Terminvorschläge
-				generiert werden. Ihr Stundenplan wird bereits automatisch berücksichtigt.</font>
+				generiert werden.</font>
+
+			<button id="import-btn">Stundenplan importieren</button>
 		</li>
 		<% } %>
 
 		<li data-role="list-divider">&nbsp;</li>
 
-		<li><a id="logout-btn">Ausloggen</a></li>
+		<li><button id="logout-btn">Ausloggen</button></li>
 	</ul>
 </div>

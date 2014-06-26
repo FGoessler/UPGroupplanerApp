@@ -3,7 +3,7 @@ app.groupplaner.GroupView = Backbone.View.extend({
 	members: null,
 
 	events: {
-		"click #delete-group-btn": "deleteGroup",
+		"click #leave-group-btn": "leaveGroup",
 		"click #rename-group-btn": "renameGroup",
 		"click #add-member-btn": "addMember",
 		"click #accept-invite-btn": "acceptInvite",
@@ -42,6 +42,7 @@ app.groupplaner.GroupView = Backbone.View.extend({
 			group: this.group.toJSON(),
 			members: this.members.toJSON(),
 			dates: this.dates.toJSON(),
+			userEmail: app.groupplaner.AuthStore.getUserEmail(),
 			pendingInvite: this.isUsersInvitePending() ? this.isUsersInvitePending().toJSON() : false
 		}));
 		$("body").trigger('create');	//trigger jQueryMobile update
@@ -82,6 +83,23 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		navigator.notification.confirm("Die Person mit der E-Mail Adresse '" + memberEmail + "' wirklich ausladen?", confirmHandler, "Achtung", ["Ja", "Nein"]);
 	},
 
+	leaveGroup: function () {
+		var model = this.members.get(app.groupplaner.AuthStore.getUserEmail());
+
+		var self = this;
+		var confirmHandler = function (button) {
+			if (button === 1) {
+				model.destroy().success(function () {
+					self.members.remove(model);
+					app.groupplaner.launcher.router.navigate("groups", {trigger: true});
+				}).fail(function () {
+					navigator.notification.alert("Verlassen der Gruppe fehlgeschlagen.");
+				});
+			}
+		};
+		navigator.notification.confirm("Wollen Sie diese Gruppe wirklich verlassen?", confirmHandler, "Achtung", ["Ja", "Nein"]);
+	},
+
 	mailMember: function (event) {
 		var memberEmail = $(event.target).attr("data-member-email");
 		window.location.href = "mailto:" + memberEmail;
@@ -102,20 +120,6 @@ app.groupplaner.GroupView = Backbone.View.extend({
 			}
 		};
 		navigator.notification.prompt("Bitte geben Sie den neuen Namen der Gruppe ein.", promptCallback, "Gruppe umbennen", ["OK", "Abbrechen"], this.group.get("name"));
-	},
-
-	deleteGroup: function () {
-		var self = this;
-		var confirmHandler = function (button) {
-			if (button === 1) {
-				self.group.destroy().success(function () {
-					window.history.back();
-				}).fail(function () {
-					navigator.notification.alert("Gruppe konnte nicht gelöscht werden.");
-				});
-			}
-		};
-		navigator.notification.confirm("Die Gruppe '" + this.group.get("name") + "' wirklich löschen?", confirmHandler, "Achtung", ["Ja", "Nein"]);
 	},
 
 	/* ------------------------------------------------------------------------------------------- */

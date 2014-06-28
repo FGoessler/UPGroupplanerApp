@@ -141,7 +141,7 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		if (member) {
 			member.save({invitationState: "ACCEPTED"}, {wait: true,
 				error: function () {
-					navigator.notification.alert("Bestätigen fehlgeschlagen.");
+					navigator.notification.alert("Beitreten fehlgeschlagen.");
 				},
 				success: function () {
 					self.members.fetch();

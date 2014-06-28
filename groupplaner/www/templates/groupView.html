@@ -42,10 +42,10 @@
 			<% } %>
 
 			<p>
-			<% if (member.invitationState === "ACCEPTED" && member.invitedBy === userEmail) { %>
+			<% if (member.invitationState === "ACCEPTED" && member.invitedBy === member.email) { %>
 				Mitglied seit: <%= member.lastStateChange %><br>
 					Gruppengründer(in)
-			<% } else if (member.invitationState === "ACCEPTED" && member.invitedBy !== userEmail) { %>
+			<% } else if (member.invitationState === "ACCEPTED" && member.invitedBy !== member.email)) { %>
 				Mitglied seit: <%= member.lastStateChange %><br>
 				eingeladen von: <%= member.invitedBy %>
 			<% } else if (member.invitationState === "INVITED") { %>

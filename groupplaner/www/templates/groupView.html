@@ -10,8 +10,9 @@
 		<!-- pending invite handling -->
 		<% if (pendingInvite) { %>
 		<li>
-			<p>Sie wurden von <%= pendingInvite.invitedBy %> eingeladen dieser Gruppe beizutreten.</p>
-			<span id="accept-invite-btn">Beitreten</span> <span id="decline-invite-btn">Ablehnen</span>
+			<p style="white-space: normal;">Sie wurden von <%= pendingInvite.invitedBy %> eingeladen dieser Gruppe beizutreten.</p>
+			<button id="accept-invite-btn" style="width: 49%; float:left;">Beitreten</button>
+			<button id="decline-invite-btn" style="width: 49%; float:right;">Ablehnen</button>
 		</li>
 		<% } %>
 
@@ -29,8 +30,10 @@
 		<li data-role="list-divider">Mitglieder</li>
 		<% _.each( members, function( member ){ %>
 		<li>
+			<h3 style="font-weight: bold; margin-top:0;"><%= member.email %></h3>
+
 			<% if (member.email !== userEmail) { %>
-			<div data-role="controlgroup" data-type="horizontal" data-mini="true" style="float: right; margin: 0;">
+			<div data-role="controlgroup" data-type="horizontal" data-mini="true" style="float: right; margin: 0 0 0 10px;">
 				<span data-member-email="<%= member.email %>"
 					  class="ui-btn ui-corner-all ui-icon-mail ui-btn-icon-notext">Mail schreiben</span>
 				<span data-member-email="<%= member.email %>"
@@ -38,11 +41,19 @@
 			</div>
 			<% } %>
 
-			<p><%= member.name %> <%= member.email %></p>
+			<p>
+			<% if (member.invitationState === "ACCEPTED" && member.invitedBy === userEmail) { %>
+				Mitglied seit: <%= member.lastStateChange %><br>
+					Gruppengründer(in)
+			<% } else if (member.invitationState === "ACCEPTED" && member.invitedBy !== userEmail) { %>
+				Mitglied seit: <%= member.lastStateChange %><br>
+				eingeladen von: <%= member.invitedBy %>
+			<% } else if (member.invitationState === "INVITED") { %>
+				Eingeladen am <%= member.lastStateChange %><br>
+				eingeladen von: <%= member.invitedBy %>
+			<% } %>
+			</p>
 
-			<p>Status: <%= member.invitationState %> (<%= member.lastStateChange %>)</p>
-
-			<p>eingeladen von: <%= member.invitedBy %></p>
 		</li>
 		<% }); %>
 

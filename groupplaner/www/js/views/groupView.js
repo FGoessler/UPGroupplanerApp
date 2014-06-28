@@ -57,10 +57,19 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		var self = this;
 		var promptCallback = function (result) {
 			if (result.buttonIndex === 1) {
-				self.members.create({email: result.input1}, {wait: true,
-					error: function () {
+				// we need to send this request manually cause backbone would send a PUT instead of a POST request
+				var options = {
+					data: JSON.stringify({email: result.input1}),
+					type: "POST",
+					contentType: "application/json; charset=utf-8",
+					headers: app.groupplaner.AuthStore.getAuthHeader()
+				};
+				$.ajax(app.groupplaner.config.baseUrl + '/group/' + self.group.id + '/member',
+					options).done(function () {
+						self.members.fetch();
+					}).fail(function () {
 						navigator.notification.alert("Einladen fehlgeschlagen.");
-					}});
+					});
 			}
 		};
 		navigator.notification.prompt("Bitte geben Sie die E-Mail Adresse der Person ein, die Sie einladen möchten.", promptCallback, "Einladen", ["OK", "Abbrechen"]);

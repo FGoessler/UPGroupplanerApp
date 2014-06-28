@@ -7,7 +7,11 @@
 <div class="ui-content" role="main">
 	<ul data-role="listview">
 		<% _.each( groups, function( group ){ %>
-		<li><a href="#group/<%= group.id %>"><%- group.name %></a></li>
+		<li><a href="#group/<%= group.id %>">
+			<h3 style="margin: 0;"><%- group.name %></h3>
+			<p style="margin: 0;"><%- groupsStatus[group.id].text %></p>
+			</a>
+		</li>
 		<% }); %>
 	</ul>
 </div>

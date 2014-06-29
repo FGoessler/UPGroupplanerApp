@@ -75,7 +75,7 @@ app.groupplaner.GroupView = Backbone.View.extend({
 					});
 			}
 		};
-		navigator.notification.prompt("Bitte geben Sie die E-Mail Adresse der Person ein, die Sie einladen möchten.", promptCallback, "Einladen", ["OK", "Abbrechen"]);
+		navigator.notification.prompt("Bitte geben Sie die Universitäts-E-Mail-Adresse der Person ein, die Sie einladen möchten.", promptCallback, "Einladen", ["OK", "Abbrechen"]);
 	},
 
 	deleteMember: function (event) {
@@ -92,7 +92,7 @@ app.groupplaner.GroupView = Backbone.View.extend({
 				});
 			}
 		};
-		navigator.notification.confirm("Die Person mit der E-Mail Adresse '" + memberEmail + "' wirklich ausladen?", confirmHandler, "Achtung", ["Ja", "Nein"]);
+		navigator.notification.confirm("Die Person mit der E-Mail-Adresse '" + memberEmail + "' wirklich ausladen?", confirmHandler, "Achtung", ["Ja", "Nein"]);
 	},
 
 	leaveGroup: function () {

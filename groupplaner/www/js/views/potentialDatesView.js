@@ -32,18 +32,9 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 
 
 	splitMultidayDates: function () {
-		//var dates = this.dates.toJSON();	//TODO: use real dates from API
-		var dates = [
-			{start: 10000, end: 11030, optimum: -10},
-			{start: 11030, end: 11510, optimum: 0},
-			{start: 11510, end: 12000, optimum: 10},
-			{start: 12000, end: 31200, optimum: 0},
-			{start: 31200, end: 72359, optimum: -10}
-		];
-
 		this.preparedDates = [];
 		var self = this;
-		_.each(dates, function (date) {
+		_.each(this.dates.toJSON(), function (date) {
 			self.preparedDates = self.preparedDates.union(self.splitMulidayDate(date));
 		});
 	},
@@ -70,9 +61,9 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 			var timespanInMinutes = timespanHours * 60 + timespanMinutes;
 
 			var backgroundColor = "grey";
-			if (date.optimum > 0) {
+			if (date.priority > 0) {
 				backgroundColor = "green";
-			} else if (date.optimum < 0) {
+			} else if (date.priority < 0) {
 				backgroundColor = "red";
 			}
 

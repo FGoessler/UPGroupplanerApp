@@ -17,14 +17,22 @@
 		<% } %>
 
 		<!-- accepted dates -->
-		<% if (!pendingInvite && dates.length > 0) { %>
+		<% if (!pendingInvite) { %>
 		<li data-role="list-divider">Termine</li>
+
+		<% if (dates.length == 0) { %>
+		<li>Keine Termine erstellt</li>
+		<% }; %>
+
 		<% _.each( dates, function( date ){ %>
 		<li>
 			<%= date.name %>
 		</li>
 		<% }); %>
-		<% } %>
+
+		<li><a href="#group/<%= group.id %>/potentialDates">Termine erstellen</a></li>
+
+		<% }; %>
 
 		<!-- member -->
 		<li data-role="list-divider">Mitglieder</li>
@@ -45,7 +53,7 @@
 			<% if (member.invitationState === "ACCEPTED" && member.invitedBy === member.email) { %>
 				Mitglied seit: <%= member.lastStateChange %><br>
 					Gruppengründer(in)
-			<% } else if (member.invitationState === "ACCEPTED" && member.invitedBy !== member.email)) { %>
+				<% } else if (member.invitationState === "ACCEPTED" && member.invitedBy !== member.email) { %>
 				Mitglied seit: <%= member.lastStateChange %><br>
 				eingeladen von: <%= member.invitedBy %>
 			<% } else if (member.invitationState === "INVITED") { %>

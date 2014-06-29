@@ -14,7 +14,9 @@ app.groupplaner.GroupsView = Backbone.View.extend({
 		this.listenTo(this.groups, 'sync', this.loadGroupsDetails);
 		this.groups.fetch();
 	},
-	
+
+	//TODO: render is sometimes called with a wrong "this" context...
+
 	render:function () {
 		var template = app.groupplaner.templateCache.renderTemplate("groupsView", {
 			groups: this.groups.toJSON(),

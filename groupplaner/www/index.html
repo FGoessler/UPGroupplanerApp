@@ -23,9 +23,10 @@
 	<script type="text/javascript" src="js/lib/underscore.js"></script>
 	<script type="text/javascript" src="js/lib/backbone.js"></script>
 	<script type="text/javascript" src="js/lib/sugar.min.js"></script>
-	
+
 	<!-- custom scripts -->
-	<script type="text/javascript" src="js/support/config.js"></script>	<!-- must be first custom script! -->
+	<script type="text/javascript" src="js/support/config.js"></script>
+	<!-- must be first custom script! -->
 	<script type="text/javascript" src="js/support/localCache.js"></script>
 	<script type="text/javascript" src="js/support/templateCache.js"></script>
 	<script type="text/javascript" src="js/support/authStore.js"></script>
@@ -39,21 +40,24 @@
 	<script type="text/javascript" src="js/models/acceptedDatesCollection.js"></script>
 	<script type="text/javascript" src="js/models/blockedDateModel.js"></script>
 	<script type="text/javascript" src="js/models/blockedDatesCollection.js"></script>
+	<script type="text/javascript" src="js/models/potentialDatesModel.js"></script>
+	<script type="text/javascript" src="js/models/potentialDatesCollection.js"></script>
 
 	<script type="text/javascript" src="js/views/groupsView.js"></script>
 	<script type="text/javascript" src="js/views/groupView.js"></script>
 	<script type="text/javascript" src="js/views/loginView.js"></script>
 	<script type="text/javascript" src="js/views/settingsView.js"></script>
 	<script type="text/javascript" src="js/views/blockedDateView.js"></script>
+	<script type="text/javascript" src="js/views/potentialDatesView.js"></script>
 
 	<script type="text/javascript" src="js/appRouter.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
-	
+
 </head>
 <body>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function () {
 		app.groupplaner.launcher.initialize();
 	});
 </script>

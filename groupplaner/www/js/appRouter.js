@@ -5,6 +5,7 @@ app.groupplaner.AppRouter = Backbone.Router.extend({
 		"login": "loginPage",
 		"groups":"groupsPage",
 		"group/:id": "groupPage",
+		"group/:id/potentialDates": "potentialDatesPage",
 		"settings": "settings",
 		"blockedDate/:id": "blockedDate",
 		"newBlockedDate": "newBlockedDate"
@@ -37,6 +38,10 @@ app.groupplaner.AppRouter = Backbone.Router.extend({
 
 	groupPage:function (id) {
 		this.changePage(new app.groupplaner.GroupView({groupId:id}));
+	},
+
+	potentialDatesPage: function (id) {
+		this.changePage(new app.groupplaner.PotentialDatesView({groupId: id}));
 	},
 
 	settings: function () {

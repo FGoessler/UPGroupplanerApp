@@ -4,7 +4,7 @@ app.groupplaner.GroupsView = Backbone.View.extend({
 	groupDates: {},
 
 	events: {
-		"click #add-group-btn" : "addGroup"
+		"click .add-group-btn": "addGroup"
 	},
 	
 	initialize: function() {

@@ -18,7 +18,10 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 
 	render: function () {
 		$.mobile.loading().loader("hide");
-		var template = app.groupplaner.templateCache.renderTemplate("settingsView", {dates: this.dates.toJSON()});
+		var template = app.groupplaner.templateCache.renderTemplate("settingsView", {
+			user: app.groupplaner.AuthStore.getUserEmail(),
+			dates: this.dates.toJSON()
+		});
 		$(this.el).html(template);
 		$("body").trigger('create');	//trigger jQueryMobile update
 		return this;

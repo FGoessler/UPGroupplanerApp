@@ -2,6 +2,7 @@ app.groupplaner.AppRouter = Backbone.Router.extend({
 
 	routes:{
 		"":"start",
+		"firstStart": "firstStartPage",
 		"login": "loginPage",
 		"groups":"groupsPage",
 		"group/:id": "groupPage",
@@ -26,8 +27,12 @@ app.groupplaner.AppRouter = Backbone.Router.extend({
 		if(app.groupplaner.AuthStore.isUserLoggedIn()) {
 			this.navigate("groups", {trigger:true});
 		} else {
-			this.navigate("login", {trigger:true});
+			this.navigate("firstStart", {trigger: true});
 		}
+	},
+
+	firstStartPage: function () {
+		this.changePage(new app.groupplaner.FirstStartView());
 	},
 
 	loginPage:function () {

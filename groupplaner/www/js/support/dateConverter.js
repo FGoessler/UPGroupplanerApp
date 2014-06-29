@@ -12,6 +12,17 @@ app.groupplaner.DateConverter = {
 		}
 	},
 
+	apiDateIntToObj: function (apiDate) {
+		var weekday = Math.floor(apiDate / 10000);
+		var hour = Math.floor((apiDate - weekday * 10000) / 100);
+		var minute = apiDate - weekday * 10000 - hour * 100;
+		return {
+			weekday: weekday,
+			hour: hour,
+			minute: minute
+		}
+	},
+
 	formattedDateObjToApiDateInt: function (formattedDate) {
 		var weekdayNrTable = {"Mo": 1, "Di": 2, "Mi": 3, "Do": 4, "Fr": 5, "Sa": 6, "So": 7};
 		var components = formattedDate.time.split(":");

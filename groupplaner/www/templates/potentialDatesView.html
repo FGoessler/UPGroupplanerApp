@@ -4,15 +4,45 @@
 	<h1>Terminvorschläge</h1>
 </div>
 
-<div class="ui-content" role="main">
-	<ul data-role="listview">
+<div class="ui-content" role="main" style="padding: 0;">
+	<div class="date-table-container">
+		<div style="width: 100%; height:1440px;">
 
-		<li data-role="list-divider">Termine</li>
-		<% _.each( dates, function( date ){ %>
-		<li>
-			<%= date.name %>
-		</li>
-		<% }); %>
+			<div class="time-legend">
+				<div>0</div>
+				<div>2</div>
+				<div>4</div>
+				<div>6</div>
+				<div>8</div>
+				<div>10</div>
+				<div>12</div>
+				<div>14</div>
+				<div>16</div>
+				<div>18</div>
+				<div>20</div>
+				<div>22</div>
+			</div>
 
-	</ul>
+			<div style="width: 1058px; height: 100%; margin-left: 30px;">
+				<div class="top-legend">
+					<div class="top-legend-weekday">MO</div>
+					<div class="top-legend-weekday">DI</div>
+					<div class="top-legend-weekday">MI</div>
+					<div class="top-legend-weekday">DO</div>
+					<div class="top-legend-weekday">FR</div>
+					<div class="top-legend-weekday">SA</div>
+					<div class="top-legend-weekday">SO</div>
+				</div>
+
+				<div id="container-1" class="weekday-container"></div>
+				<div id="container-2" class="weekday-container"></div>
+				<div id="container-3" class="weekday-container"></div>
+				<div id="container-4" class="weekday-container"></div>
+				<div id="container-5" class="weekday-container"></div>
+				<div id="container-6" class="weekday-container"></div>
+				<div id="container-7" class="weekday-container"></div>
+			</div>
+
+		</div>
+	</div>
 </div>

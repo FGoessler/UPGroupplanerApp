@@ -78,7 +78,11 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 
 	createNewDateForClickedTime: function (clickedTimeInMinutes) {
 		//TODO: determine matching time period
-		//TODO: open create date view
+		var start = 11030;
+		var end = 11130;
+
+		var url = "group/" + this.groupId + "/newAcceptedDate?start=" + start + "&end=" + end;
+		app.groupplaner.launcher.router.navigate(url, {trigger: true});
 	},
 
 

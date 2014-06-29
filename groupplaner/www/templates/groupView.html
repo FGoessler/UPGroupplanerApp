@@ -24,9 +24,20 @@
 		<li>Keine Termine erstellt</li>
 		<% }; %>
 
-		<% _.each( dates, function( date ){ %>
+		<% _.each( dates, function( date ){
+		start = app.groupplaner.DateConverter.apiDateIntToFormattedDateObj(date.start);
+		end = app.groupplaner.DateConverter.apiDateIntToFormattedDateObj(date.end);
+		%>
 		<li>
-			<%= date.name %>
+			<div style="float:left;margin: 7px 0 0 0;"><%= start.weekday %> <%= start.time %> - <%= end.weekday %> <%=
+				end.time %>
+			</div>
+			<div data-role="controlgroup" data-type="horizontal" data-mini="true" style="float: right; margin: 0px;">
+				<span data-date-id="<%= date.id %>"
+					  class="delete-date ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext">Löschen</span>
+				<span data-date-id="<%= date.id %>"
+					  class="edit-date ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext">Ändern</span>
+			</div>
 		</li>
 		<% }); %>
 
@@ -43,9 +54,9 @@
 			<% if (member.email !== userEmail) { %>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" style="float: right; margin: 0 0 0 10px;">
 				<span data-member-email="<%= member.email %>"
-					  class="ui-btn ui-corner-all ui-icon-mail ui-btn-icon-notext">Mail schreiben</span>
+					  class="mail-member ui-btn ui-corner-all ui-icon-mail ui-btn-icon-notext">Mail schreiben</span>
 				<span data-member-email="<%= member.email %>"
-					  class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext">Löschen</span>
+					  class="delete-member ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext">Löschen</span>
 			</div>
 			<% } %>
 

@@ -15,8 +15,6 @@ app.groupplaner.GroupsView = Backbone.View.extend({
 		this.groups.fetch();
 	},
 
-	//TODO: render is sometimes called with a wrong "this" context...
-
 	render:function () {
 		var template = app.groupplaner.templateCache.renderTemplate("groupsView", {
 			groups: this.groups.toJSON(),
@@ -37,8 +35,12 @@ app.groupplaner.GroupsView = Backbone.View.extend({
 			self.groupDates[id] = new app.groupplaner.AcceptedDatesCollection();
 			self.groupDates[id].groupId = id;
 
-			self.groupMembers[id].fetch().always(self.render);
-			self.groupDates[id].fetch().always(self.render);
+			self.groupMembers[id].fetch().always(function () {
+				self.render();
+			});
+			self.groupDates[id].fetch().always(function () {
+				self.render();
+			});
 		});
 
 		this.render();
@@ -75,9 +77,10 @@ app.groupplaner.GroupsView = Backbone.View.extend({
 			} else {
 				var nextDate = self.groupDates[groupID].getNextDate();
 				if(nextDate !== null) {
+					var dateObj = app.groupplaner.DateConverter.apiDateIntToFormattedDateObj(nextDate.get("start"));
 					groupsStatus[groupID] = {
 						status: "green",
-						text: "Nächster Termin: " + app.groupplaner.DateConverter.apiDateIntToFormattedDateObj(nextDate)
+						text: "Nächster Termin: " + dateObj.weekday + " " + dateObj.time
 					};
 				} else {
 					groupsStatus[groupID] = {

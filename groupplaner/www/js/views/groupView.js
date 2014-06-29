@@ -1,6 +1,7 @@
 app.groupplaner.GroupView = Backbone.View.extend({
 	group: null,
 	members: null,
+	dates: null,
 
 	events: {
 		"click #leave-group-btn": "leaveGroup",
@@ -8,8 +9,10 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		"click #add-member-btn": "addMember",
 		"click #accept-invite-btn": "acceptInvite",
 		"click #decline-invite-btn": "declineInvite",
-		"click .ui-icon-delete": "deleteMember",
-		"click .ui-icon-mail": "mailMember"
+		"click .delete-member": "deleteMember",
+		"click .mail-member": "mailMember",
+		"click .edit-date": "editDate",
+		"click .delete-date": "deleteDate"
 	},
 
 	initialize: function (options) {
@@ -168,5 +171,31 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		return this.members.find(function (member) {
 			return member.get("email") === userEmail && member.get("invitationState") === "INVITED";
 		});
+	},
+
+	/* ------------------------------------------------------------------------------------------- */
+	/* manage dates */
+	/* ------------------------------------------------------------------------------------------- */
+
+	deleteDate: function (event) {
+		var dateId = $(event.target).attr("data-date-id");
+		var model = this.dates.get(dateId);
+
+		var self = this;
+		var confirmHandler = function (button) {
+			if (button === 1) {
+				model.destroy().success(function () {
+					self.dates.remove(model)
+				}).fail(function () {
+					navigator.notification.alert("Termin konnte nicht gelöscht werden.");
+				});
+			}
+		};
+		navigator.notification.confirm("Den Termin wirklich löschen?", confirmHandler, "Achtung", ["Ja", "Nein"]);
+	},
+
+	editDate: function (event) {
+		var dateId = $(event.target).attr("data-date-id");
+		app.groupplaner.launcher.router.navigate("group/" + this.group.id + "/acceptedDate/" + dateId, {trigger: true});
 	}
 });

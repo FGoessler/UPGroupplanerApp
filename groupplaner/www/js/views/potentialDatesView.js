@@ -46,19 +46,8 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 	generateDivs: function () {
 		var self = this;
 		_.each(this.preparedDates, function (date) {
-			var start = app.groupplaner.DateConverter.apiDateIntToObj(date.start);
-			var end = app.groupplaner.DateConverter.apiDateIntToObj(date.end);
-
-			if (end.hour === 0) end.hour = 24;
-			var timespanHours = end.hour - start.hour;
-			var timespanMinutes;
-			if (end.minute >= start.minute) {
-				timespanMinutes = end.minute - start.minute;
-			} else {
-				timespanMinutes = (end.minute + 60) - start.minute;
-				timespanHours--;
-			}
-			var timespanInMinutes = timespanHours * 60 + timespanMinutes;
+			var weekday = Math.floor(date.start / app.groupplaner.DateConverter.minutesPerDay);
+			var timespanInMinutes = date.end - date.start;
 
 			var backgroundColor = "grey";
 			if (date.priority > 0) {
@@ -67,19 +56,20 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 				backgroundColor = "red";
 			}
 
-			$("#container-" + start.weekday).append(
+			$("#container-" + weekday).append(
 					"<div style='height: " + timespanInMinutes + "px; background-color: " + backgroundColor + ";' class='timetable-date'></div>"
 			).click(function (event) {
 					var clickedTimeInMinutes = event.pageY - this.offsetTop;
-					self.createNewDateForClickedTime(clickedTimeInMinutes);
+					self.createNewDateForClickedTime(weekday, clickedTimeInMinutes);
 				});
 		});
 	},
 
-	createNewDateForClickedTime: function (clickedTimeInMinutes) {
+	createNewDateForClickedTime: function (weekday, clickedTimeInMinutes) {
 		//TODO: determine matching time period
-		var start = 11030;
-		var end = 11130;
+		var weekdayOffset = weekday * 24 * 60;
+		var start = weekdayOffset + clickedTimeInMinutes;
+		var end = start + 60;
 
 		var url = "group/" + this.groupId + "/newAcceptedDate?start=" + start + "&end=" + end;
 		app.groupplaner.launcher.router.navigate(url, {trigger: true});
@@ -87,14 +77,14 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 
 
 	splitMulidayDate: function (date) {
-		var weekdayStart = Math.floor(date.start / 10000);
-		var weekdayEnd = Math.floor(date.end / 10000);
+		var weekdayStart = Math.floor(date.start / app.groupplaner.DateConverter.minutesPerDay);
+		var weekdayEnd = Math.floor(date.end / app.groupplaner.DateConverter.minutesPerDay);
 
 		if (weekdayStart < weekdayEnd) {
-			var newDate1 = $.extend(true, {}, date);
-			newDate1.end = weekdayStart * 10000 + 2359;
-			var newDate2 = $.extend(true, {}, date);
-			newDate2.start = (weekdayStart + 1) * 10000;
+			var newDate1 = $.extend(true, {}, date);	//create copy
+			newDate1.end = (weekdayStart + 1) * app.groupplaner.DateConverter.minutesPerDay - 1;
+			var newDate2 = $.extend(true, {}, date);	//create copy
+			newDate2.start = (weekdayStart + 1) * app.groupplaner.DateConverter.minutesPerDay;
 			return [newDate1].union(this.splitMulidayDate(newDate2));
 		} else {
 			return [date];

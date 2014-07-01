@@ -57,21 +57,29 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 			}
 
 			$("#container-" + weekday).append(
-					"<div style='height: " + timespanInMinutes + "px; background-color: " + backgroundColor + ";' class='timetable-date'></div>"
+					"<div data-date-start='" + date.start + "' " +
+					"data-date-end='" + date.end + "' " +
+					"data-date-prio='" + date.priority + "' " +
+					"style='height: " + timespanInMinutes + "px; background-color: " + backgroundColor + ";' " +
+					"class='timetable-date'></div>"
 			).click(function (event) {
+					var start = parseInt($(event.target).attr("data-date-start"));
+					var end = parseInt($(event.target).attr("data-date-end"));
+					var prio = parseInt($(event.target).attr("data-date-prio"));
 					var clickedTimeInMinutes = event.pageY - this.offsetTop;
-					self.createNewDateForClickedTime(weekday, clickedTimeInMinutes);
+					self.createNewDateForClickedTime(weekday, clickedTimeInMinutes, start, end, prio);
 				});
 		});
 	},
 
-	createNewDateForClickedTime: function (weekday, clickedTimeInMinutes) {
-		//TODO: determine matching time period
-		var weekdayOffset = weekday * 24 * 60;
-		var start = weekdayOffset + clickedTimeInMinutes;
-		var end = start + 60;
+	createNewDateForClickedTime: function (weekday, clickedTimeInMinutes, dateStart, dateEnd, datePriority) {
+		if (datePriority <= 0) {
+			var weekdayOffset = weekday * 24 * 60;
+			dateStart = weekdayOffset + clickedTimeInMinutes;
+			dateEnd = dateStart + 60;
+		}
 
-		var url = "group/" + this.groupId + "/newAcceptedDate?start=" + start + "&end=" + end;
+		var url = "group/" + this.groupId + "/newAcceptedDate?start=" + dateStart + "&end=" + dateEnd;
 		app.groupplaner.launcher.router.navigate(url, {trigger: true});
 	},
 

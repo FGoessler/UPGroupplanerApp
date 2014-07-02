@@ -11,8 +11,7 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 		}
 	},
 
-	render: function (event) {
-		console.log(event);
+	render: function () {
 		this.splitMultidayDates();
 		this.sortDates();
 

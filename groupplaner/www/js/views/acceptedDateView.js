@@ -44,6 +44,7 @@ app.groupplaner.AcceptedDateView = Backbone.View.extend({
 	},
 
 	save: function () {
+		$.mobile.loading().loader("show");
 		this.date.save({
 			start: app.groupplaner.DateConverter.formattedDateObjToApiDateInt({weekday: $('input[name=from-weekday]:checked').val(), time: $("#from-time").val()}),
 			end: app.groupplaner.DateConverter.formattedDateObjToApiDateInt({weekday: $('input[name=to-weekday]:checked').val(), time: $("#to-time").val()})
@@ -53,6 +54,9 @@ app.groupplaner.AcceptedDateView = Backbone.View.extend({
 			},
 			success: function () {
 				window.history.back();
+			},
+			complete: function () {
+				$.mobile.loading().loader("hide");
 			}
 		});
 	}

@@ -17,7 +17,6 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 	},
 
 	render: function () {
-		$.mobile.loading().loader("hide");
 		var template = app.groupplaner.templateCache.renderTemplate("settingsView", {
 			user: app.groupplaner.AuthStore.getUserEmail(),
 			dates: this.dates.toJSON()
@@ -38,8 +37,9 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 		$.ajax(app.groupplaner.config.baseUrl + "/timetable/import", options).success(function(){
 			self.dates.fetch();
 		}).fail(function(){
-			$.mobile.loading().loader("hide");
 			navigator.notification.alert("Importieren fehlgeschlagen.");
+		}).always(function () {
+			$.mobile.loading().loader("hide");
 		});
 	},
 
@@ -50,10 +50,13 @@ app.groupplaner.SettingsView = Backbone.View.extend({
 		var self = this;
 		var confirmHandler = function (button) {
 			if (button === 1) {
-				model.destroy().success(function () {
+				$.mobile.loading().loader("show");
+				model.destroy({wait: true}).success(function () {
 					self.dates.remove(model)
 				}).fail(function () {
 					navigator.notification.alert("Zeitraum konnte nicht gelöscht werden.");
+				}).always(function () {
+					$.mobile.loading().loader("hide");
 				});
 			}
 		};

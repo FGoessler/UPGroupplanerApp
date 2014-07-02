@@ -50,9 +50,12 @@ app.groupplaner.GroupsView = Backbone.View.extend({
 		var self = this;
 		var promptCallback = function(result) {
 			if (result.buttonIndex === 1) {
+				$.mobile.loading().loader("show");
 				self.groups.create({name: result.input1}, {wait: true,
 					error: function () {
 						navigator.notification.alert("Erstellen der Gruppe fehlgeschlagen.");
+					}, complete: function () {
+						$.mobile.loading().loader("hide");
 					}});
 			}
 		};

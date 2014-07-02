@@ -36,6 +36,7 @@ app.groupplaner.BlockedDateView = Backbone.View.extend({
 	},
 
 	save: function () {
+		$.mobile.loading().loader("show");
 		if (!this.date) this.date = new app.groupplaner.BlockedDateModel();
 		this.date.save({
 			source: app.groupplaner.config.sourcekey,
@@ -47,6 +48,9 @@ app.groupplaner.BlockedDateView = Backbone.View.extend({
 			},
 			success: function () {
 				window.history.back();
+			},
+			complete: function () {
+				$.mobile.loading().loader("hide");
 			}
 		});
 	}

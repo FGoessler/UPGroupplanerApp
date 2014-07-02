@@ -60,6 +60,7 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		var self = this;
 		var promptCallback = function (result) {
 			if (result.buttonIndex === 1) {
+				$.mobile.loading().loader("show");
 				// we need to send this request manually cause backbone would send a PUT instead of a POST request
 				var options = {
 					data: JSON.stringify({email: result.input1}),
@@ -72,6 +73,8 @@ app.groupplaner.GroupView = Backbone.View.extend({
 						self.members.fetch();
 					}).fail(function () {
 						navigator.notification.alert("Einladen fehlgeschlagen.");
+					}).always(function () {
+						$.mobile.loading().loader("hide");
 					});
 			}
 		};
@@ -85,10 +88,13 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		var self = this;
 		var confirmHandler = function (button) {
 			if (button === 1) {
-				model.destroy().success(function () {
+				$.mobile.loading().loader("show");
+				model.destroy({wait: true}).success(function () {
 					self.members.remove(model)
 				}).fail(function () {
 					navigator.notification.alert("Die Person konnte nicht ausgeladen werden.");
+				}).always(function () {
+					$.mobile.loading().loader("hide");
 				});
 			}
 		};
@@ -101,11 +107,14 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		var self = this;
 		var confirmHandler = function (button) {
 			if (button === 1) {
-				model.destroy().success(function () {
+				$.mobile.loading().loader("show");
+				model.destroy({wait: true}).success(function () {
 					self.members.remove(model);
 					app.groupplaner.launcher.router.navigate("groups", {trigger: true});
 				}).fail(function () {
 					navigator.notification.alert("Verlassen der Gruppe fehlgeschlagen.");
+				}).always(function () {
+					$.mobile.loading().loader("hide");
 				});
 			}
 		};
@@ -125,9 +134,13 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		var self = this;
 		var promptCallback = function (result) {
 			if (result.buttonIndex === 1) {
+				$.mobile.loading().loader("show");
 				self.group.save({name: result.input1}, {wait: true,
 					error: function () {
 						navigator.notification.alert("Umbennen der Gruppe fehlgeschlagen.");
+					},
+					complete: function () {
+						$.mobile.loading().loader("hide");
 					}});
 			}
 		};
@@ -142,26 +155,33 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		var self = this;
 		var member = this.isUsersInvitePending();
 		if (member) {
+			$.mobile.loading().loader("show");
 			member.save({invitationState: "ACCEPTED"}, {wait: true,
 				error: function () {
 					navigator.notification.alert("Beitreten fehlgeschlagen.");
 				},
 				success: function () {
 					self.members.fetch();
+				},
+				complete: function () {
+					$.mobile.loading().loader("hide");
 				}});
 		}
 	},
 
 	declineInvite: function () {
-		var self = this;
 		var member = this.isUsersInvitePending();
 		if (member) {
+			$.mobile.loading().loader("show");
 			member.save({invitationState: "REJECTED"}, {wait: true,
 				error: function () {
 					navigator.notification.alert("Ablehnen fehlgeschlagen.");
 				},
 				success: function () {
-					self.members.fetch();
+					app.groupplaner.launcher.router.navigate("groups", {trigger: true});
+				},
+				complete: function () {
+					$.mobile.loading().loader("hide");
 				}});
 		}
 	},
@@ -184,10 +204,13 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		var self = this;
 		var confirmHandler = function (button) {
 			if (button === 1) {
+				$.mobile.loading().loader("show");
 				model.destroy().success(function () {
 					self.dates.remove(model)
 				}).fail(function () {
 					navigator.notification.alert("Termin konnte nicht gelöscht werden.");
+				}).always(function () {
+					$.mobile.loading().loader("hide");
 				});
 			}
 		};

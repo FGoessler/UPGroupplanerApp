@@ -5,16 +5,14 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 		if (options && options.groupId) {
 			this.groupId = options.groupId;
 
-			this.listenTo(this.dates, 'change', this.render);
-			this.listenTo(this.dates, 'add', this.render);
-			this.listenTo(this.dates, 'remove', this.render);
 			this.listenTo(this.dates, 'sync', this.render);
 			this.dates.groupId = this.groupId;
 			this.dates.fetch();
 		}
 	},
 
-	render: function () {
+	render: function (event) {
+		console.log(event);
 		this.splitMultidayDates();
 		this.sortDates();
 
@@ -25,7 +23,7 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 		$(this.el).html(template);
 		$("body").trigger('create');	//trigger jQueryMobile update
 
-		this.generateDivs();
+		this.generateDivs(this.el);
 
 		return this;
 	},
@@ -43,20 +41,20 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 		this.preparedDates = _.sortBy(this.preparedDates, "start");
 	},
 
-	generateDivs: function () {
+	generateDivs: function (parent) {
 		var self = this;
 		_.each(this.preparedDates, function (date) {
 			var weekday = Math.floor(date.start / app.groupplaner.DateConverter.minutesPerDay);
 			var timespanInMinutes = date.end - date.start;
 
-			var backgroundColor = "grey";
+			var backgroundColor = "transparent";
 			if (date.priority > 0) {
 				backgroundColor = "green";
 			} else if (date.priority < 0) {
 				backgroundColor = "red";
 			}
 
-			$("#container-" + weekday).append(
+			$(parent).find("#container-" + weekday).append(
 					"<div data-date-start='" + date.start + "' " +
 					"data-date-end='" + date.end + "' " +
 					"data-date-prio='" + date.priority + "' " +

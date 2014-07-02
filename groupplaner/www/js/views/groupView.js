@@ -205,7 +205,8 @@ app.groupplaner.GroupView = Backbone.View.extend({
 		var confirmHandler = function (button) {
 			if (button === 1) {
 				$.mobile.loading().loader("show");
-				model.destroy().success(function () {
+				model.groupId = self.group.id;
+				model.destroy({wait: true}).success(function () {
 					self.dates.remove(model)
 				}).fail(function () {
 					navigator.notification.alert("Termin konnte nicht gelöscht werden.");

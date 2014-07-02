@@ -41,8 +41,7 @@ app.groupplaner.AuthStore = {
 	 * Removes the users login data and navigates back to the login page.
 	 */
 	logout: function () {
-		localStorage.removeItem("user_email");
-		localStorage.removeItem("user_password");
+		localStorage.clear();
 		app.groupplaner.launcher.router.navigate("#", {trigger: true});
 	},
 

@@ -48,9 +48,11 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 
 			var backgroundColor = "transparent";
 			if (date.priority > 0) {
-				backgroundColor = "green";
+				var transparency = date.priority / 10;
+				backgroundColor = "rgba(0,255,0," + transparency + ")";
 			} else if (date.priority < 0) {
-				backgroundColor = "red";
+				var transparency = (date.priority * -1) / 10;
+				backgroundColor = "rgba(255,0,0," + transparency + ")";
 			}
 
 			$(parent).find("#container-" + weekday).append(

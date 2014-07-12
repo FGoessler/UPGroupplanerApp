@@ -32,6 +32,23 @@
     background-color: rgba(0, 0, 0, 0) !important;
 }
 
+/* view to block interaction with UI when loading */
+
+.ui-loader-background {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    position: fixed;
+    z-index: 100;
+}
+
+.ui-loading .ui-loader-background {
+    display: block;
+}
+
 /* Potential Dates View */
 
 .date-table-container {

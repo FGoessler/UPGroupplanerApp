@@ -23,6 +23,7 @@ app.groupplaner.launcher = {
 		if (navigator.userAgent.match(/(iPad.*|iPhone.*|iPod.*);.*CPU.*OS 7_\d/i)) {
 			$("body").addClass("ios7").append('<div id="ios7statusbar"/>');
 		}
+		$("body").append('<div class="ui-loader-background"/>');
 
 		this.router = new app.groupplaner.AppRouter();
 		Backbone.history.start({pushState: false});

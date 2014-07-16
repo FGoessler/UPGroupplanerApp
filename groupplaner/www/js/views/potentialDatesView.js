@@ -46,21 +46,27 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 			var weekday = Math.floor(date.start / app.groupplaner.DateConverter.minutesPerDay);
 			var timespanInMinutes = date.end - date.start;
 
-			var backgroundColor = "transparent";
+			var backgroundColor = "transparent", label = "", color = "white";
 			if (date.priority > 0) {
 				var transparency = date.priority / 10;
 				backgroundColor = "rgba(0,255,0," + transparency + ")";
+				label = "guter Termin";
+				color = "black";
+			} else if (_.contains(date.traits, "ACCEPTED_DATE")) {
+				backgroundColor = "rgb(0,0,255)";
+				label = "Gruppentermin";
 			} else if (date.priority < 0) {
 				var transparency = (date.priority * -1) / 10;
 				backgroundColor = "rgba(255,0,0," + transparency + ")";
+				label = "schlechter Termin";
 			}
 
 			$(parent).find("#container-" + weekday).append(
 					"<div data-date-start='" + date.start + "' " +
 					"data-date-end='" + date.end + "' " +
 					"data-date-prio='" + date.priority + "' " +
-					"style='height: " + timespanInMinutes + "px; background-color: " + backgroundColor + ";' " +
-					"class='timetable-date'></div>"
+						"style='height: " + timespanInMinutes + "px; background-color: " + backgroundColor + "; color: " + color + "' " +
+						"class='timetable-date'>" + label + "</div>"
 			).click(function (event) {
 					var start = parseInt($(event.target).attr("data-date-start"));
 					var end = parseInt($(event.target).attr("data-date-end"));

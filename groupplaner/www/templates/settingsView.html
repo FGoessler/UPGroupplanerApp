@@ -1,6 +1,6 @@
 <div data-role="header" data-position="fixed">
 	<h1>Einstellungen</h1>
-	<a href="#" data-icon="back" data-iconpos="notext" class="back ui-btn-left">Back</a>
+	<a onclick="window.history.back();" data-icon="back" data-iconpos="notext" class="back ui-btn-left">Back</a>
 </div>
 
 <div class="ui-content" role="main">
@@ -14,6 +14,7 @@
 		<li>
 			<p style="float:left;margin: 0;"><%= start.weekday %> <%= start.time %> - <%= end.weekday %> <%= end.time %><br>
 				<% if(date.source === "TimetableImporter") { %> Aus Stundenplan importiert<% } %></p>
+
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" style="float: right; margin: 0px;">
 				<span data-date-id="<%= date.id %>" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext">Löschen</span>
 				<span data-date-id="<%= date.id %>"
@@ -40,6 +41,8 @@
 
 		<li data-role="list-divider"><p style="font-weight: bold;">Als <%= user %> eingeloggt.</p></li>
 
-		<li><button id="logout-btn">Ausloggen</button></li>
+		<li>
+			<button id="logout-btn">Ausloggen</button>
+		</li>
 	</ul>
 </div>

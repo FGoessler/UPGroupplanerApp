@@ -46,45 +46,62 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 			var weekday = Math.floor(date.start / app.groupplaner.DateConverter.minutesPerDay);
 			var timespanInMinutes = date.end - date.start;
 
-			var backgroundColor = "transparent", label = "", color = "white";
+			var backgroundColor = "transparent", label = "", color = "white", id = 0;
 			if (date.priority > 0) {
 				var transparency = date.priority / 10;
 				backgroundColor = "rgba(0,255,0," + transparency + ")";
-				label = "guter Termin";
+				if (date.priority >= 10) {
+					label = "optimaler Termin";
+				} else {
+					label = "guter Termin";
+				}
 				color = "black";
-			} else if (_.contains(date.traits, "ACCEPTED_DATE")) {
+			} else if (date.traits.ACCEPTED_DATE) {
 				backgroundColor = "rgb(0,0,255)";
 				label = "Gruppentermin";
+				id = date.traits.ACCEPTED_DATE;
 			} else if (date.priority < 0) {
 				var transparency = (date.priority * -1) / 10;
 				backgroundColor = "rgba(255,0,0," + transparency + ")";
-				label = "schlechter Termin";
+				var numberOfBlockedUsersForDate = date.traits.BLOCKED_DATE;
+				if (numberOfBlockedUsersForDate) {
+					label = "schlechter Termin<br>(" + numberOfBlockedUsersForDate + " nicht verfügbar)";
+				} else {
+					label = "schlechter Termin";
+				}
 			}
 
 			$(parent).find("#container-" + weekday).append(
 					"<div data-date-start='" + date.start + "' " +
 					"data-date-end='" + date.end + "' " +
 					"data-date-prio='" + date.priority + "' " +
+						"data-date-id='" + id + "' " +
 						"style='height: " + timespanInMinutes + "px; background-color: " + backgroundColor + "; color: " + color + "' " +
 						"class='timetable-date'>" + label + "</div>"
 			).click(function (event) {
 					var start = parseInt($(event.target).attr("data-date-start"));
 					var end = parseInt($(event.target).attr("data-date-end"));
 					var prio = parseInt($(event.target).attr("data-date-prio"));
+					var dateId = parseInt($(event.target).attr("data-date-id"));
 					var clickedTimeInMinutes = event.pageY - this.offsetTop;
-					self.createNewDateForClickedTime(weekday, clickedTimeInMinutes, start, end, prio);
+					self.handleClickOnDate(weekday, clickedTimeInMinutes, start, end, prio, dateId);
 				});
 		});
 	},
 
-	createNewDateForClickedTime: function (weekday, clickedTimeInMinutes, dateStart, dateEnd, datePriority) {
+	handleClickOnDate: function (weekday, clickedTimeInMinutes, dateStart, dateEnd, datePriority, acceptedDateId) {
 		if (datePriority <= 0) {
 			var weekdayOffset = weekday * 24 * 60;
 			dateStart = weekdayOffset + clickedTimeInMinutes;
 			dateEnd = dateStart + 60;
 		}
 
-		var url = "group/" + this.groupId + "/newAcceptedDate?start=" + dateStart + "&end=" + dateEnd;
+		var url;
+		if (acceptedDateId) {
+			url = "group/" + this.groupId + "/acceptedDate/" + acceptedDateId;
+		} else {
+			url = "group/" + this.groupId + "/newAcceptedDate?start=" + dateStart + "&end=" + dateEnd;
+		}
 		app.groupplaner.launcher.router.navigate(url, {trigger: true});
 	},
 

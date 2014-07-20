@@ -1,6 +1,10 @@
 app.groupplaner.PotentialDatesView = Backbone.View.extend({
 	dates: new app.groupplaner.PotentialDatesCollection(),
 
+	events: {
+		"click #backBtn": "goBack"
+	},
+
 	initialize: function (options) {
 		if (options && options.groupId) {
 			this.groupId = options.groupId;
@@ -23,6 +27,8 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 		$("body").trigger('create');	//trigger jQueryMobile update
 
 		this.generateDivs(this.el);
+
+		this.restoreScrollPosition(this.el);
 
 		return this;
 	},
@@ -90,6 +96,8 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 	},
 
 	handleClickOnDate: function (weekday, clickedTimeInMinutes, dateStart, dateEnd, datePriority, acceptedDateId) {
+		this.saveScrollPosition();
+
 		if (datePriority <= 0) {
 			var weekdayOffset = weekday * 24 * 60;
 			dateStart = weekdayOffset + clickedTimeInMinutes;
@@ -119,6 +127,29 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 		} else {
 			return [date];
 		}
+	},
+
+	goBack: function () {
+		localStorage.removeItem("potentialDatesViewScrollTop");
+		localStorage.removeItem("potentialDatesViewScrollLeft");
+		window.history.back();
+	},
+
+	saveScrollPosition: function () {
+		var top = $(window).scrollTop();
+		var left = $(".date-table-container").scrollLeft();
+		localStorage.setItem("potentialDatesViewScrollTop", top);
+		localStorage.setItem("potentialDatesViewScrollLeft", left);
+	},
+
+	restoreScrollPosition: function (parent) {
+		var top = localStorage.getItem("potentialDatesViewScrollTop");
+		var left = localStorage.getItem("potentialDatesViewScrollLeft");
+		if (!top) top = 400;
+		$(window).scrollTop(top);
+		setTimeout(function () {
+			$(".date-table-container").scrollLeft(left);
+		}, 1000);
 	}
 
 });

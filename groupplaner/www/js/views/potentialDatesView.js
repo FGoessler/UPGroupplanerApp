@@ -49,20 +49,20 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 			var backgroundColor = "transparent", label = "", color = "white", id = 0;
 			if (date.priority > 0) {
 				var transparency = date.priority / 10;
-				backgroundColor = "rgba(0,255,0," + transparency + ")";
+				backgroundColor = "rgba(34,134,52," + transparency + ")";
 				if (date.priority >= 10) {
 					label = "optimaler Termin";
 				} else {
 					label = "guter Termin";
 				}
-				color = "black";
+				//color = "black";
 			} else if (date.traits.ACCEPTED_DATE) {
-				backgroundColor = "rgb(0,0,255)";
+				backgroundColor = "rgb(38,87,133)";
 				label = "Gruppentermin";
 				id = date.traits.ACCEPTED_DATE;
 			} else if (date.priority < 0) {
 				var transparency = (date.priority * -1) / 10;
-				backgroundColor = "rgba(255,0,0," + transparency + ")";
+				backgroundColor = "rgba(195,38,25," + transparency + ")";
 				var numberOfBlockedUsersForDate = date.traits.BLOCKED_DATE;
 				if (numberOfBlockedUsersForDate) {
 					label = "schlechter Termin<br>(" + numberOfBlockedUsersForDate + " nicht verfügbar)";

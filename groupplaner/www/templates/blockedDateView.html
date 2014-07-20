@@ -48,4 +48,5 @@
 	<input id="to-time" type="time" placeholder="bis" <% if(date) { %> value="<%= date.end.time %>" <% } %>><br>
 
 	<input id="submit-btn" type="button" value="Speichern">
+	<% if(dateId) { %><input id="delete-btn" type="button" value="Löschen"><% } %>
 </div>

@@ -2,7 +2,8 @@ app.groupplaner.BlockedDateView = Backbone.View.extend({
 	date: null,
 
 	events: {
-		"click #submit-btn": "save"
+		"click #submit-btn": "save",
+		"click #delete-btn": "deleteDate"
 	},
 
 	initialize: function (options) {
@@ -53,6 +54,23 @@ app.groupplaner.BlockedDateView = Backbone.View.extend({
 				$.mobile.loading().loader("hide");
 			}
 		});
+	},
+
+	deleteDate: function () {
+		var self = this;
+		var confirmHandler = function (button) {
+			if (button === 1) {
+				$.mobile.loading().loader("show");
+				self.date.destroy({wait: true}).success(function () {
+					window.history.back();
+				}).fail(function () {
+					navigator.notification.alert("Zeitraum konnte nicht gelöscht werden.");
+				}).always(function () {
+					$.mobile.loading().loader("hide");
+				});
+			}
+		};
+		navigator.notification.confirm("Den Zeitraum wirklich löschen?", confirmHandler, "Achtung", ["Ja", "Nein"]);
 	}
 
 

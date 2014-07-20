@@ -15,11 +15,16 @@ app.groupplaner.AppRouter = Backbone.Router.extend({
 	},
 
 	initialize:function () {
-		// Handle back button throughout the application
-		$('.back').on('click', function(event) {
-			window.history.back();
-			return false;
-		});
+		// Handle back button (android)
+		document.addEventListener("backbutton", function (e) {
+			if (Backbone.history.fragment == "start" || Backbone.history.fragment == "firstStart" || Backbone.history.fragment == "groups") {
+				e.preventDefault();
+				navigator.app.exitApp();
+			}
+			else {
+				window.history.back();
+			}
+		}, false);
 		this.firstPage = true;
 	},
 

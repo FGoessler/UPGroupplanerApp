@@ -110,7 +110,7 @@ app.groupplaner.GroupView = Backbone.View.extend({
 				$.mobile.loading().loader("show");
 				model.destroy({wait: true}).success(function () {
 					self.members.remove(model);
-					app.groupplaner.launcher.router.navigate("groups", {trigger: true});
+					window.history.back();
 				}).fail(function () {
 					navigator.notification.alert("Verlassen der Gruppe fehlgeschlagen.");
 				}).always(function () {

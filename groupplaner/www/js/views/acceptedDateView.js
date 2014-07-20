@@ -31,12 +31,12 @@ app.groupplaner.AcceptedDateView = Backbone.View.extend({
 			};
 		}
 
-		var template = app.groupplaner.templateCache.renderTemplate("acceptedDateView", {date: convertedDateObj});
+		var template = app.groupplaner.templateCache.renderTemplate("acceptedDateView", {date: convertedDateObj, dateId: this.date.id});
 		$(this.el).html(template);
 
 		if (convertedDateObj) {
-			$("input[name='from-weekday'][value='" + convertedDateObj.start.weekday + "']").attr("checked", "checked");
-			$("input[name='to-weekday'][value='" + convertedDateObj.end.weekday + "']").attr("checked", "checked");
+			$(this.el).find("input[name='from-weekday'][value='" + convertedDateObj.start.weekday + "']").attr("checked", "checked");
+			$(this.el).find("input[name='to-weekday'][value='" + convertedDateObj.end.weekday + "']").attr("checked", "checked");
 		}
 
 		$("body").trigger('create');	//trigger jQueryMobile update

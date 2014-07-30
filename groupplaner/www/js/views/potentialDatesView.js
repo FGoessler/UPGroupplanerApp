@@ -69,7 +69,7 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 			} else if (date.priority < 0) {
 				var transparency = (date.priority * -1) / 10;
 				backgroundColor = "rgba(195,38,25," + transparency + ")";
-				var numberOfBlockedUsersForDate = date.traits.BLOCKED_DATE;
+				var numberOfBlockedUsersForDate = date.traits.BLOCKED_DATE.length;
 				if (numberOfBlockedUsersForDate) {
 					label = "schlechter Termin<br>(" + numberOfBlockedUsersForDate + " nicht verfügbar)";
 				} else {

@@ -69,9 +69,9 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 			} else if (date.priority < 0) {
 				var transparency = (date.priority * -1) / 10;
 				backgroundColor = "rgba(195,38,25," + transparency + ")";
-				var numberOfBlockedUsersForDate = date.traits.BLOCKED_DATE.length;
-				if (numberOfBlockedUsersForDate) {
-					label = "schlechter Termin<br>(" + numberOfBlockedUsersForDate + " nicht verfügbar)";
+				var blockedDateTrait = date.traits.BLOCKED_DATE;
+				if (blockedDateTrait) {
+					label = "schlechter Termin<br>(" + blockedDateTrait.length + " nicht verfügbar)";
 				} else {
 					label = "schlechter Termin";
 				}
@@ -81,9 +81,9 @@ app.groupplaner.PotentialDatesView = Backbone.View.extend({
 					"<div data-date-start='" + date.start + "' " +
 					"data-date-end='" + date.end + "' " +
 					"data-date-prio='" + date.priority + "' " +
-						"data-date-id='" + id + "' " +
-						"style='height: " + timespanInMinutes + "px; background-color: " + backgroundColor + "; color: " + color + "' " +
-						"class='timetable-date'>" + label + "</div>"
+					"data-date-id='" + id + "' " +
+					"style='height: " + timespanInMinutes + "px; background-color: " + backgroundColor + "; color: " + color + "' " +
+					"class='timetable-date'>" + label + "</div>"
 			).click(function (event) {
 					var start = parseInt($(event.target).attr("data-date-start"));
 					var end = parseInt($(event.target).attr("data-date-end"));

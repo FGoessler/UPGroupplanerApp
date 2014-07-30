@@ -24,7 +24,7 @@ app.groupplaner.BlockedDateView = Backbone.View.extend({
 			};
 		}
 
-		var template = app.groupplaner.templateCache.renderTemplate("blockedDateView", {date: convertedDateObj});
+		var template = app.groupplaner.templateCache.renderTemplate("blockedDateView", {date: convertedDateObj, dateId: this.date.id});
 		$(this.el).html(template);
 
 		if (convertedDateObj) {

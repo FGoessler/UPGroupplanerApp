@@ -19,8 +19,8 @@ app.groupplaner.launcher = {
 	},
 	// Update DOM on a Received Event
 	receivedEvent: function(id) {
-		// iOS7 Status Bar adjustment
-		if (navigator.userAgent.match(/(iPad.*|iPhone.*|iPod.*);.*CPU.*OS 7_\d/i)) {
+		// iOS7/8 Status Bar adjustment
+		if (navigator.userAgent.match(/(iPad.*|iPhone.*|iPod.*);.*CPU.*OS 7_\d/i) || navigator.userAgent.match(/(iPad.*|iPhone.*|iPod.*);.*CPU.*OS 8_\d/i)) {
 			$("body").addClass("ios7").append('<div id="ios7statusbar"/>');
 		}
 		$("body").append('<div class="ui-loader-background"/>');

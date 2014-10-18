@@ -5,6 +5,10 @@
     border-top: solid 20px rgb(30, 84, 138);
 }
 
+/* fix for too small weekday container */
+div.ui-controlgroup-controls {
+    width: 102%;
+}
 
 
 
